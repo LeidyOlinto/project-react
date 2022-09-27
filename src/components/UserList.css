@@ -19,6 +19,7 @@
 
 .informacaoUsuario {
     width: 100%;
+    padding-left: 20px;
 }
 
 .clients {
@@ -36,12 +37,12 @@
 
 }
 
-.nomeusuario {
+.infor.nomeusuario {
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 20px;
     align-items: flex-start;
+    margin: 0;
 }
 
 .buttonpagar {
