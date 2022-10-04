@@ -10,7 +10,7 @@ export default function App() {
   const [usuarios, setUsuarios] = useState([]);
   const [Modalopen, setModalopen] = useState(false);
   const [userSelected, setUserSelected] = useState({})
- 
+
   useEffect(() => {
     getUsuarios()
     console.log(usuarios)
@@ -42,11 +42,13 @@ export default function App() {
       </div>
     )
   }
+
   return (
     <div >
       {usuarios.forEach(item => {
         console.log(item.name)
       })}
+
       {
         Modalopen && (
           <Modal handleClose={
