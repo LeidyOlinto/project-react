@@ -1,0 +1,28 @@
+.ModalPagamento {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(200, 200, 200, 0.313);
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.menssage{
+    display: flex;
+    border: 1px solid;
+    background-color: blue;
+}
+.ModalContaine {
+    width: 800px;
+    height: 500px;
+    border-radius: 12px;
+    background-color: rgb(234, 233, 243);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+}

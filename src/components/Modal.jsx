@@ -1,11 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import Modalopen from './Modalopen';
 import './Modal.css';
-//import api from "../servics/axios";
+import api from "../servics/axios";
+import ModalPagamento from "./Modal/ModalPagament"
+
+// const Cards = [
+//     // valid card
+//     {
+//         card_number: '1111111111111111',
+//         cvv: 789,
+//         expiry_date: '01/18',
+//     },
+//     // invalid card
+//     {
+//         card_number: '4111111111111234',
+//         cvv: 123,
+//         expiry_date: '01/20',
+//     },
+// ];
+
 
 function Modal(props) {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [Value, setValue] = useState("R$ 0,00");
+    const [Card, setSelectedCard] = useState('0');
+    const [userID, userSelectedId] = useState('');
+    const [Modalopen, setModalopen] = useState(false);
+    const [retornoModal, setRetornoModal] = useState({})
+
     //MASK 
     const currencyMask = (e) => {
         e.preventDefault();
@@ -23,13 +45,46 @@ function Modal(props) {
         e.target.value = formatInput;
 
         setValue(formatInput);
+        myInput(myInput);
+        //setMessageAlert(message);
+        userSelectedId(userID);
+
     };
-    //CARTÃO CARDS
-    
+    const POSTObject = {
+        userID,
+        Value,
+        Card,
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(POSTObject);
+
+        api
+            .post(
+                "https://run.mocky.io/v3/533cd5d7-63d3-4488-bf8d-4bb8c751c989",
+                POSTObject
+            )
+            .then((response) => {
+                console.log(response);
+                if (response.data.status == "Aprovada" && Card == 1) {
+                    console.log("Aprovado");
+                    setModalopen(true)
+
+
+                } else if (response.data.status == "Aprovada" && Card == 0) {
+                    let itemAux = { resp: "Negado" }
+                    console.log("negado");
+                    setModalopen(true)
+                    setRetornoModal(itemAux)
+                }
+            })
+
+    };
 
     return (
         <div className='Modal'>
-            <form className='ModalContainer'>
+            <form className='ModalContainer' onSubmit={handleSubmit}>
                 <h2 className='pagamentoP'>Pagamento para
                     <span className='usuarioSelecionado'>{props.userSelected.name}</span></h2>
 
@@ -40,16 +95,32 @@ function Modal(props) {
                     onChange={currencyMask}
                 />
 
-                <input className='NumeroCartao' type='number'
-                    placeholder='Cartão com o final 0123' />
-                <div className='ButtonDiv'>
+                <select className='NumeroCartao' onChange={(e) => { setSelectedCard(e.target.value) }}>
+                    <option value='0'> Cartão com o final 0123</option>
+                    <option value='1'> Cartão com o final 1111</option>
+
+                </select>
+
+
+                <div className='ButtonDiv' >
                     <button className='CloseButton' onClick={() => props.handleClose(false)}>Fechar</button>
 
                     <button className='button'
-                        onClick={() => setIsModalVisible(true)}
-                    >Pagar</button> {isModalVisible ? <h1><Modalopen /></h1> : null}
+                        onClick={(e) => {
+                            handleSubmit();
+                            ModalPagamento(true);
+                        }}
+                    >Pagar</button> {isModalVisible ? <h1><Modalopen /><ModalPagamento /></h1> : null}
                 </div>
             </form>
+            {
+                Modalopen && (
+                    <ModalPagamento handleClose={
+                        setModalopen}
+                        retornoModal={retornoModal}
+                    />
+                )
+            }
         </div>
     );
 }

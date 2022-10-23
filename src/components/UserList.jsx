@@ -6,6 +6,7 @@ import '../components/UserList.css';
 import Modal from './Modal';
 
 
+
 export default function App() {
   const [usuarios, setUsuarios] = useState([]);
   const [Modalopen, setModalopen] = useState(false);
@@ -17,7 +18,10 @@ export default function App() {
   }, []);
 
   const getUsuarios = async () => {
-    const response = await api.get()
+    const response = await api.get('https://www.mocky.io/v2/5d531c4f2e0000620081ddce',
+      {
+        'Content-type': 'application/json'
+      })
     if (response.status === 200) {
       setUsuarios(response.data)
     }
