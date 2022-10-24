@@ -22,7 +22,7 @@ import './ModalPag.css';
 function ModalPagamento(props) {
     const [Card, setSelectedCard] = useState('0');
     const [userID, userSelectedId] = useState('');
-   
+
     const POSTObject = {
         userID,
         Card,
@@ -31,10 +31,12 @@ function ModalPagamento(props) {
     return (
         <div className='Modal'>
             <form className='ModalContaine'>
-                <h2 className='pagamentoP'>Recibo de Pagamento 
-                    <span className='menssage'>{props.retornoModal.resp}</span>
-                </h2>
-                <div className='menssage'>{props.retornoModal.resp == "Negado"? console.log('batata') : console.log('cenoura')}</div>
+                <h2 className='pagamentoP'>Recibo de Pagamento  </h2>
+
+
+
+                <div className='menssage'>{props.retornoModal.resp}</div>
+                <div className='menssage'>{props.retornoNegado}</div>
                 <div className='ButtonDiv' >
                     <button className='CloseButton' onClick={() => props.handleClose(false)}>Fechar</button>
                 </div>

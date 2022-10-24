@@ -27,7 +27,7 @@ function Modal(props) {
     const [userID, userSelectedId] = useState('');
     const [Modalopen, setModalopen] = useState(false);
     const [retornoModal, setRetornoModal] = useState({})
-
+    const[retornoNegado,setRetornoNegado]=useState({})
     //MASK 
     const currencyMask = (e) => {
         e.preventDefault();
@@ -68,15 +68,18 @@ function Modal(props) {
             .then((response) => {
                 console.log(response);
                 if (response.data.status == "Aprovada" && Card == 1) {
+                    let itemAux = { resp: "O pagamento foi concluido com sucesso." }
                     console.log("Aprovado");
                     setModalopen(true)
+                    setRetornoModal(itemAux)
 
 
                 } else if (response.data.status == "Aprovada" && Card == 0) {
-                    let itemAux = { resp: "Negado" }
+                    var retornoNegado= { response: "O pagamento não foi concluido com sucesso." }
                     console.log("negado");
                     setModalopen(true)
-                    setRetornoModal(itemAux)
+                    setRetornoNegado(retornoNegado)
+                 
                 }
             })
 
