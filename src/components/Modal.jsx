@@ -27,7 +27,7 @@ function Modal(props) {
     const [userID, userSelectedId] = useState('');
     const [Modalopen, setModalopen] = useState(false);
     const [retornoModal, setRetornoModal] = useState(false)
-    //const[retornoNegado,setRetornoNegado]=useState({})
+  
     //MASK 
     const currencyMask = (e) => {
         e.preventDefault();
@@ -46,7 +46,7 @@ function Modal(props) {
 
         setValue(formatInput);
         myInput(myInput);
-        //setMessageAlert(message);
+        
         userSelectedId(userID);
 
     };
@@ -67,28 +67,25 @@ function Modal(props) {
             )
             .then((response) => {
                 console.log(response);
-                if (response.data.status === "Aprovada" && Card == '0') {
-                    var itemAux = { resp: true }
-                    console.log("Aprovado");
-                    console.log(Card)
-                    setModalopen(true)
-
-                    setRetornoModal(itemAux)
-
-
-                } else if (response.data.status === "Aprovada" && Card == '1') {
-                    var itemAux = { resp: false }
-                    console.log("negado");
-                    setModalopen(true);
-
-                    setRetornoModal(itemAux)
+                if (response.data.status === "Aprovada" && Card == 1) {
+                  let itemAux = { resp: "O pagamento foi concluido com sucesso." };
+                  console.log("Aprovado");
+                  setModalopen(true);
+                  setRetornoModal(itemAux);
+                } else if (response.data.status === "Aprovada" && Card == 0) {
+                  var retornoNegado = {
+                    response: "O pagamento não foi concluido com sucesso.",
+                  };
+                  console.log("negado");
+                  setModalopen(true);
+                  setRetornoModal(retornoNegado);
                 }
-            })
-            .catch((error) => {
+
+              })
+              .catch((error) => {
                 console.log(error);
             });
-    };
-
+          };
     return (
         <div className='Modal'>
             <form className='ModalContainer' onSubmit={handleSubmit}>
@@ -114,7 +111,7 @@ function Modal(props) {
 
                     <button className='button'
                         onClick={(e) => {
-                            //handleSubmit();
+                            handleSubmit();
                             ModalPagamento(true);
 
                         }}
