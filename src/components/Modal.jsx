@@ -4,20 +4,20 @@ import './Modal.css';
 import api from "../servics/axios";
 import ModalPagamento from "./Modal/ModalPagament"
 
-// const Cards = [
-//     // valid card
-//     {
-//         card_number: '1111111111111111',
-//         cvv: 789,
-//         expiry_date: '01/18',
-//     },
-//     // invalid card
-//     {
-//         card_number: '4111111111111234',
-//         cvv: 123,
-//         expiry_date: '01/20',
-//     },
-// ];
+const Card = [
+    // valid card
+    {
+        card_number: '1111111111111111',
+        cvv: 789,
+        expiry_date: '01/18',
+    },
+    // invalid card
+    {
+        card_number: '4111111111111234',
+        cvv: 123,
+        expiry_date: '01/20',
+    },
+];
 
 
 function Modal(props) {
@@ -26,8 +26,8 @@ function Modal(props) {
     const [Card, setSelectedCard] = useState('0');
     const [userID, userSelectedId] = useState('');
     const [Modalopen, setModalopen] = useState(false);
-    const [retornoModal, setRetornoModal] = useState({})
-    const[retornoNegado,setRetornoNegado]=useState({})
+    const [retornoModal, setRetornoModal] = useState(false)
+    //const[retornoNegado,setRetornoNegado]=useState({})
     //MASK 
     const currencyMask = (e) => {
         e.preventDefault();
@@ -67,22 +67,26 @@ function Modal(props) {
             )
             .then((response) => {
                 console.log(response);
-                if (response.data.status == "Aprovada" && Card == 1) {
-                    let itemAux = { resp: "O pagamento foi concluido com sucesso." }
+                if (response.data.status === "Aprovada" && Card == '0') {
+                    var itemAux = { resp: true }
                     console.log("Aprovado");
+                    console.log(Card)
                     setModalopen(true)
+
                     setRetornoModal(itemAux)
 
 
-                } else if (response.data.status == "Aprovada" && Card == 0) {
-                    var retornoNegado= { response: "O pagamento não foi concluido com sucesso." }
+                } else if (response.data.status === "Aprovada" && Card == '1') {
+                    var itemAux = { resp: false }
                     console.log("negado");
-                    setModalopen(true)
-                    setRetornoNegado(retornoNegado)
-                 
+                    setModalopen(true);
+
+                    setRetornoModal(itemAux)
                 }
             })
-
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     return (
@@ -110,8 +114,9 @@ function Modal(props) {
 
                     <button className='button'
                         onClick={(e) => {
-                            handleSubmit();
+                            //handleSubmit();
                             ModalPagamento(true);
+
                         }}
                     >Pagar</button> {isModalVisible ? <h1><Modalopen /><ModalPagamento /></h1> : null}
                 </div>

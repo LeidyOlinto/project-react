@@ -1,4 +1,4 @@
-.ModalPagamento {
+.Modal {
     left: 0;
     top: 0;
     width: 100%;
@@ -13,13 +13,14 @@
 }
 .menssage{
     display: flex;
-    background-color: blue;
+    background-color: rgb(201, 158, 150);
     justify-content: center;
-    padding-top: 5px;
+    padding-top: 10px;
+    border-radius: 5px;
 }
 .ModalContaine {
     width: 800px;
-    height: 500px;
+    height: 300px;
     border-radius: 12px;
     background-color: rgb(234, 233, 243);
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
