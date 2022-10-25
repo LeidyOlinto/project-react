@@ -19,6 +19,15 @@
     border-radius: 5px;
 
 }
+.menssagee{
+  
+    background: rgb(137, 65, 53);
+    justify-content: center;
+    padding-top: 5px;
+    border-radius: 5px;
+
+}
+
 
 .ModalContaine {
     width: 800px;

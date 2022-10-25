@@ -19,7 +19,6 @@ const Card = [
     },
 ];
 
-
 function Modal(props) {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [Value, setValue] = useState("R$ 0,00");
@@ -27,7 +26,7 @@ function Modal(props) {
     const [userID, userSelectedId] = useState('');
     const [Modalopen, setModalopen] = useState(false);
     const [retornoModal, setRetornoModal] = useState(false)
-  
+
     //MASK 
     const currencyMask = (e) => {
         e.preventDefault();
@@ -42,11 +41,8 @@ function Modal(props) {
             currency: "BRL",
             minimumFractionDigits: 2,
         });
-        e.target.value = formatInput;
-
+        e.target.value = formatInput
         setValue(formatInput);
-        myInput(myInput);
-        
         userSelectedId(userID);
 
     };
@@ -68,24 +64,24 @@ function Modal(props) {
             .then((response) => {
                 console.log(response);
                 if (response.data.status === "Aprovada" && Card == 1) {
-                  let itemAux = { resp: "O pagamento foi concluido com sucesso." };
-                  console.log("Aprovado");
-                  setModalopen(true);
-                  setRetornoModal(itemAux);
+                    let itemAux = { resp: "O pagamento foi concluido com sucesso." };
+                    console.log("Aprovado");
+                    setModalopen(true);
+                    setRetornoModal(itemAux);
                 } else if (response.data.status === "Aprovada" && Card == 0) {
-                  var retornoNegado = {
-                    response: "O pagamento não foi concluido com sucesso.",
-                  };
-                  console.log("negado");
-                  setModalopen(true);
-                  setRetornoModal(retornoNegado);
+                    var retornoNegado = {
+                        response: "O pagamento não foi concluido com sucesso.",
+                    };
+                    console.log("negado");
+                    setModalopen(true);
+                    setRetornoModal(retornoNegado);
                 }
 
-              })
-              .catch((error) => {
+            })
+            .catch((error) => {
                 console.log(error);
             });
-          };
+    };
     return (
         <div className='Modal'>
             <form className='ModalContainer' onSubmit={handleSubmit}>

@@ -6,7 +6,6 @@ import '../components/UserList.css';
 import Modal from './Modal';
 
 
-
 export default function App() {
   const [usuarios, setUsuarios] = useState([]);
   const [Modalopen, setModalopen] = useState(false);
