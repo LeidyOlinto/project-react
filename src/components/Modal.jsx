@@ -22,7 +22,7 @@ const Card = [
 function Modal(props) {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [Value, setValue] = useState("R$ 0,00");
-    const [Card, setSelectedCard] = useState('0');
+    const [selectedCard, setSelectedCard] = useState('0');
     const [userID, userSelectedId] = useState('');
     const [Modalopen, setModalopen] = useState(false);
     const [retornoModal, setRetornoModal] = useState(false)
@@ -46,31 +46,34 @@ function Modal(props) {
         userSelectedId(userID);
 
     };
-    const POSTObject = {
-        userID,
-        Value,
-        Card,
-    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(POSTObject);
 
         api
             .post(
                 "https://run.mocky.io/v3/533cd5d7-63d3-4488-bf8d-4bb8c751c989",
-                POSTObject
+
+                {
+                    "card_number": Card[selectedCard].card_number,
+                    "cvv": Card[selectedCard].cvv,
+                    "expiry_date": Card[selectedCard].expiry_date,
+                    "destination_user_id": props.userSelected.id,
+                    "value": (Value)
+                }
+
             )
+
             .then((response) => {
                 console.log(response);
-                if (response.data.status === "Aprovada" && Card == 1) {
+                if (response.data.status === "Aprovada" && selectedCard == 1) {
                     let itemAux = { resp: "O pagamento foi concluido com sucesso." };
                     console.log("Aprovado");
                     setModalopen(true);
                     setRetornoModal(itemAux);
-                } else if (response.data.status === "Aprovada" && Card == 0) {
+                } else if (response.data.status === "Aprovada" && selectedCard == 0) {
                     var retornoNegado = {
-                        response: "O pagamento não foi concluido com sucesso.",
+                        response: "O pagamento Não foi concluido com sucesso.",
                     };
                     console.log("negado");
                     setModalopen(true);
@@ -94,23 +97,16 @@ function Modal(props) {
                     name="Value"
                     onChange={currencyMask}
                 />
-
                 <select className='NumeroCartao' onChange={(e) => { setSelectedCard(e.target.value) }}>
                     <option value='0'> Cartão com o final 0123</option>
                     <option value='1'> Cartão com o final 1111</option>
 
                 </select>
-
-
                 <div className='ButtonDiv' >
                     <button className='CloseButton' onClick={() => props.handleClose(false)}>Fechar</button>
 
                     <button className='button'
-                        onClick={(e) => {
-                            handleSubmit();
-                            ModalPagamento(true);
 
-                        }}
                     >Pagar</button> {isModalVisible ? <h1><Modalopen /><ModalPagamento /></h1> : null}
                 </div>
             </form>

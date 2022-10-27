@@ -48,10 +48,7 @@ export default function App() {
 
   return (
     <div >
-      {usuarios.forEach(item => {
-        console.log(item.name)
-      })}
-
+     
       {
         Modalopen && (
           <Modal handleClose={

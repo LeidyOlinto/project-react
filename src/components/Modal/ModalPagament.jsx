@@ -7,7 +7,7 @@ function ModalPagamento(props) {
         <div className='Modal'>
             <form className='ModalContaine'>
                 <h2 className='pagamentoP'>Recibo de Pagamento  </h2>
-                <div className='menssage '>
+                <div className='menssage'>
                 <div className='menssage'><h4>{props.retornoModal.resp}</h4></div>
                 <div className='menssage'><h4>{props.retornoModal.response}</h4></div>
 
@@ -20,3 +20,6 @@ function ModalPagamento(props) {
     );
 }
 export default ModalPagamento;
+
+
+
